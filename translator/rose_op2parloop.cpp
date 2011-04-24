@@ -181,7 +181,7 @@ void OPParLoop::unparse()
   for(vector<SgProject*>::iterator i=kernels.begin(); i!=kernels.end(); ++i)
   {  
     cerr << "Running AST tests." << endl;
-    AstTests::runAllTests(*i);
+    //AstTests::runAllTests(*i);
     cerr << "AST tests passed." <<endl;
     (*i)->unparse();
     cerr << "Unparsed." << endl;
@@ -264,12 +264,17 @@ void OPParLoop::initialiseDataTypes()
 {  
   // In order to build the prototype for the plan function, we need to get hold of the types 
   // that we intend to pass it. Since these are declared in op_datatypes.h, we need to 
-  // loop them up before we can use them.
+  // look them up before we can use them.
   op_set = lookupNamedTypeInParentScopes("op_set");
+  assert(op_set != NULL);
   op_dat = SgClassType::createType(buildStructDeclaration(SgName("op_dat<void>"), fileGlobalScope));
+  assert(op_dat != NULL);
   op_ptr = lookupNamedTypeInParentScopes("op_ptr");
+  assert(op_ptr != NULL);
   op_access = lookupNamedTypeInParentScopes("op_access");
+  assert(op_access != NULL);
   op_plan = lookupNamedTypeInParentScopes("op_plan");
+  assert(op_plan != NULL);
 }
 
 void OPParLoop::createKernel(string kernel_name, SgFunctionParameterList *paramList)

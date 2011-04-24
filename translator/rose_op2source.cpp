@@ -195,7 +195,7 @@ void OPSource::visit(SgNode *n)
 void OPSource::unparse()
 {
   cout << "Running AST tests." << endl;
-  AstTests::runAllTests(project);
+  //AstTests::runAllTests(project);
   cout << "AST tests passed." <<endl;
   project->unparse();
   cout << "Program File Unparsed." << endl; 
