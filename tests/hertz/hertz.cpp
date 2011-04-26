@@ -93,7 +93,7 @@ void run(struct params *input, int num_iter) {
   one_time.push_back(SimpleTimer("op2_decl"));
   one_time.back().start();
   op_set nodes(input->nnode, NULL);
-  op_set edges(input->nedge, &input->partition_length);
+  op_set edges(input->nedge, (input->npartition == 1 ? NULL : &input->partition_length));
   op_ptr edge_map(edges, nodes, 2, input->edge);
   op_dat<struct contact> p_aos(edges, 1, aos);
   op_dat<double> p_force_inc(nodes, 3, force_inc);
