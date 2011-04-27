@@ -155,6 +155,20 @@ void run(struct params *input, int num_iter) {
       per_iter[0].set_total_time(2*res_time[1]);
     }
 
+    op_fetch_data((op_dat<double> *)&p_shear);
+    op_fetch_data((op_dat<double> *)&p_force_inc);
+    op_fetch_data((op_dat<double> *)&p_force_dec);
+    op_fetch_data((op_dat<double> *)&p_torque_dec);
+
+    //emit first 3 values of force_inc/force_dec
+    for (int i=0; i<9; i++)
+      printf("%sforce_inc[%d] = %.16f\n", (i % 3 == 0) ? "\n" : "", i, force_inc[i]);
+    for (int i=0; i<9; i++)
+      printf("%sforce_dec[%d] = %.16f\n", (i % 3 == 0) ? "\n" : "", i, force_dec[i]);
+    for (int i=0; i<9; i++)
+      printf("%sinput->force[%d] = %.16f\n", (i % 3 == 0) ? "\n" : "", i, input->force[i]);
+
+/*
     per_iter[1].start();
     op_par_loop_5(update, nodes,
         &p_force_inc, 0, NULL, OP_READ,
@@ -173,10 +187,11 @@ void run(struct params *input, int num_iter) {
     op_fetch_data((op_dat<double> *)&p_force);
     op_fetch_data((op_dat<double> *)&p_torque);
     per_iter[2].stop_and_add_to_total();
+*/
 
     //-----------------------------------------------------------------------
 
-#if 0
+#if 1
     //CHECKING
     //only check results the first time around
     if (run == 0) {
@@ -185,13 +200,13 @@ void run(struct params *input, int num_iter) {
         out << "force[" << n << "]";
         check_result_vector(
             out.str().c_str(),
-            &input->expected_force[(n*3)], &input->force[(n*3)]);
+            &input->expected_force[(n*3)], &input->force[(n*3)], 0.00001, true);
         out.str("");
 
-        out << "torque[" << n << "]";
-        check_result_vector(
-            out.str().c_str(),
-            &input->expected_torque[(n*3)], &input->torque[(n*3)]);
+      //out << "torque[" << n << "]";
+      //check_result_vector(
+      //    out.str().c_str(),
+      //    &input->expected_torque[(n*3)], &input->torque[(n*3)]);
       }
       for (int n=0; n<input->nedge; n++) {
         stringstream out;
