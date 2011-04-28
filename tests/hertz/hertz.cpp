@@ -176,23 +176,26 @@ void run(struct params *input, int num_iter) {
 
     //-----------------------------------------------------------------------
 
-#if 0
+#if 1
     //CHECKING
     //only check results the first time around
     if (run == 0) {
-      for (int n=0; n<input->nnode; n++) {
-        std::stringstream out;
-        out << "force[" << n << "]";
-        check_result_vector(
-            out.str().c_str(),
-            &input->expected_force[(n*3)], &input->force[(n*3)]);
-        out.str("");
+      //for (int n=0; n<input->nnode; n++) {
+      //  std::stringstream out;
+      //  out << "force[" << n << "]";
+      //  check_result_vector(
+      //      out.str().c_str(),
+      //      &input->expected_force[(n*3)], &input->force[(n*3)]);
+      //}
 
-        out << "torque[" << n << "]";
-        check_result_vector(
-            out.str().c_str(),
-            &input->expected_torque[(n*3)], &input->torque[(n*3)]);
-      }
+      //for (int n=0; n<input->nnode; n++) {
+      //  std::stringstream out;
+      //  out << "torque[" << n << "]";
+      //  check_result_vector(
+      //      out.str().c_str(),
+      //      &input->expected_torque[(n*3)], &input->torque[(n*3)]);
+      //}
+
       for (int n=0; n<input->nedge; n++) {
         stringstream out;
         out << "shear[" << n << "]";
