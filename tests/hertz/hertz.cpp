@@ -118,14 +118,6 @@ void run(struct params *input, int num_iter) {
   per_iter.push_back(SimpleTimer("result_fetch"));
   for (int run=0; run<num_iter; run++) {
 
-    //PREPROCESSING
-    // prep for run (not necessary to time these)
-    for (int i=0; i<input->nnode*3; i++) {
-      force_inc[i] = 0.0;
-      force_dec[i] = 0.0;
-      torque_dec[i] = 0.0;
-    }
-
     //-----------------------------------------------------------------------
 
     //KERNEL INVOCATION
@@ -157,9 +149,9 @@ void run(struct params *input, int num_iter) {
 
     per_iter[1].start();
     op_par_loop_5(update, nodes,
-        &p_force_inc, 0, NULL, OP_READ,
-        &p_force_dec, 0, NULL, OP_READ,
-        &p_torque_dec, 0, NULL, OP_READ,
+        &p_force_inc, 0, NULL, OP_RW,
+        &p_force_dec, 0, NULL, OP_RW,
+        &p_torque_dec, 0, NULL, OP_RW,
         &p_force, 0, NULL, OP_RW,
         &p_torque, 0, NULL, OP_RW);
     per_iter[1].stop_and_add_to_total();
