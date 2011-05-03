@@ -1,11 +1,11 @@
 #include <math.h>
+#include "hertz_constants.h"
 
 static void res(struct contact *aos, 
   double *shear, 
   double *force_inc, double *force_dec, 
   double *torquei, double *torquej) {
   //TODO: don't hardcode, push these into constant memory
-  #define sqrtFiveOverSix 0.91287092917527685576161630466800355658790782499663875
   double dt = 0.00001;
   double nktv2p = 1;
   double yeff = 3134796.2382445144467056;
