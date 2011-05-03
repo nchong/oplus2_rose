@@ -100,8 +100,8 @@ void run(struct params *input, int num_iter) {
   op_dat<double> p_force_dec(nodes, 3, force_dec);
   op_dat<double> p_torque_dec(nodes, 3, torque_dec);
   op_dat<double> p_shear(edges, 3, input->shear);
-  op_dat<double> p_force(edges, 3, input->force);
-  op_dat<double> p_torque(edges, 3, input->torque);
+  op_dat<double> p_force(nodes, 3, input->force);
+  op_dat<double> p_torque(nodes, 3, input->torque);
   one_time.back().stop_and_add_to_total();
 
   // OP2 plan (see HACK below)
@@ -168,25 +168,31 @@ void run(struct params *input, int num_iter) {
 
     //-----------------------------------------------------------------------
 
-#if 1
+#if 0
     //CHECKING
     //only check results the first time around
     if (run == 0) {
-      //for (int n=0; n<input->nnode; n++) {
-      //  std::stringstream out;
-      //  out << "force[" << n << "]";
-      //  check_result_vector(
-      //      out.str().c_str(),
-      //      &input->expected_force[(n*3)], &input->force[(n*3)]);
-      //}
+      const double epsilon = 0.00001;
+      bool verbose = false;
+      bool die_on_flag = false;
 
-      //for (int n=0; n<input->nnode; n++) {
-      //  std::stringstream out;
-      //  out << "torque[" << n << "]";
-      //  check_result_vector(
-      //      out.str().c_str(),
-      //      &input->expected_torque[(n*3)], &input->torque[(n*3)]);
-      //}
+      for (int n=0; n<input->nnode; n++) {
+        std::stringstream out;
+        out << "force[" << n << "]";
+        check_result_vector(
+            out.str().c_str(),
+            &input->expected_force[(n*3)], &input->force[(n*3)],
+            epsilon, verbose, die_on_flag);
+      }
+
+      for (int n=0; n<input->nnode; n++) {
+        std::stringstream out;
+        out << "torque[" << n << "]";
+        check_result_vector(
+            out.str().c_str(),
+            &input->expected_torque[(n*3)], &input->torque[(n*3)],
+            epsilon, verbose, die_on_flag);
+      }
 
       for (int n=0; n<input->nedge; n++) {
         stringstream out;
