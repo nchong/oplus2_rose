@@ -20,6 +20,7 @@ build: $(SOURCES)
 	  ../common/cmd_arg_reader.cpp ../common/stopwatch.cpp ../common/bank_checker.cpp ../common/stopwatch_linux.cpp \
     $(HERTZ_COMMONDIR)/libcommon.so \
     rose_hertz.cu -o op2_gpu_timer
+	$(NVCC) $(NVCCFLAGS) -lrt $^ -o op2_posix_timer
 
 src2src: clean
 	@if [ -z "${HERTZ_COMMONDIR}" ]; then echo "ERROR: set HERTZ_COMMONDIR env variable first."; exit 1; fi
@@ -27,4 +28,4 @@ src2src: clean
 
 clean: 
 	rm -f op_par.cu kernels.h res_kernel.cu update_kernel.cu rose_hertz.cpp \
-	op2_cpu_timer op2_gpu_timer rose_hertz.cu blank.cpp
+	op2_cpu_timer op2_gpu_timer op2_posix_timer rose_hertz.cu blank.cpp
