@@ -1,5 +1,5 @@
 #include <math.h>
-#include "hertz_constants.h"
+#define sqrtFiveOverSix 0.91287092917527685576161630466800355658790782499663875
 
 static void res(struct contact *aos, 
   double *shear, 
