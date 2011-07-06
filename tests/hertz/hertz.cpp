@@ -18,7 +18,6 @@
   #include "simple_timer.h"
 #endif
 #include "check_result_vector.h"
-#include "hertz_constants.h"
 #include "user_defined_types.h"
 #include "op_seq.h"
 #include "res.h"
