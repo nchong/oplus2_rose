@@ -27,8 +27,6 @@
 
 using namespace std;
 
-SimpleTimer dummy[8];
-
 void run(struct params *input, int num_iter) {
 
   //--------------------

@@ -3,7 +3,7 @@ OP2ROSE := ../../translator/op2rose
 
 NVCC := nvcc
 INCLUDEFLAGS := -I$(COMMONDIR) -I$(HERTZ_COMMONDIR)
-NVCCFLAGS := -O2 -arch sm_13 $(INCLUDEFLAGS) -D OP_DIAGS=0 #-g
+NVCCFLAGS := -arch sm_13 $(INCLUDEFLAGS) -D OP_DIAGS=0 #-g -O2
 
 VPATH = $(COMMONDIR)
 
